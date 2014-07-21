@@ -18,4 +18,4 @@ Build the module
 Use the module built in the /build folder
 
 A get-started guide will come soon,
-You can first take a look at the [documentation](wiki/Documentation).
+You can first take a look at the [documentation](https://github.com/VirtualSensitive/ccn-bridge/wiki/Documentation).
