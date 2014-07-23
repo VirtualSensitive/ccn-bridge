@@ -58,6 +58,10 @@ var CCNBridge = (function () {
       windowListener,
       trigger;
 
+  /**
+   * List of events
+   * [Item] --> Event name : listener-list name
+   */
   events = {
     'click': 'click',
     'dblclick': 'double-click',
@@ -78,6 +82,9 @@ var CCNBridge = (function () {
     'zoom': 'zoom'
   };
 
+  /**
+   * List of callbacks / listeners to execute each time an event occur
+   */
   listeners = {
     'click': [],
     'double-click': [],
@@ -123,7 +130,12 @@ var CCNBridge = (function () {
     }
   };
 
-  windowListener = (function (root) {
+  /**
+   * windowListener private reference :
+   *
+   * bind or unbind events on JavaScript window object
+   */
+  windowListener = (function (CCNBridge) {
     var on,
       clickHandler,
       doubleClickHandler,
@@ -147,64 +159,64 @@ var CCNBridge = (function () {
       zoomHandler,
       off;
     clickHandler = function (event) {
-      trigger.apply(root, ['click', event]);
+      trigger.apply(CCNBridge, ['click', event]);
     };
     doubleClickHandler = function (event) {
-      trigger.apply(root, ['dblclick', event]);
+      trigger.apply(CCNBridge, ['dblclick', event]);
     };
     mouseDownHandler = function (event) {
-      trigger.apply(root, ['handle', event]);
+      trigger.apply(CCNBridge, ['handle', event]);
     };
     mouseMoveHandler = function (event) {
-      trigger.apply(root, ['move', event]);
+      trigger.apply(CCNBridge, ['move', event]);
     };
     mouseUpHandler = function (event) {
-      trigger.apply(root, ['release', event]);
+      trigger.apply(CCNBridge, ['release', event]);
     };
     touchStartHandler = function (event) {
-      trigger.apply(root, ['handle', event]);
+      trigger.apply(CCNBridge, ['handle', event]);
     };
     touchMoveHandler = function (event) {
-      trigger.apply(root, ['move', event]);
+      trigger.apply(CCNBridge, ['move', event]);
     };
     touchEndHandler = function (event) {
-      trigger.apply(root, ['release', event]);
+      trigger.apply(CCNBridge, ['release', event]);
     };
     dragStartHandler = function (event) {
-      trigger.apply(root, ['dragstart', event]);
+      trigger.apply(CCNBridge, ['dragstart', event]);
     };
     dragHandler = function (event) {
-      trigger.apply(root, ['drag', event]);
+      trigger.apply(CCNBridge, ['drag', event]);
     };
     dragEndHandler = function (event) {
-      trigger.apply(root, ['dragend', event]);
+      trigger.apply(CCNBridge, ['dragend', event]);
     };
     dragEnterHandler = function (event) {
-      trigger.apply(root, ['dragenter', event]);
+      trigger.apply(CCNBridge, ['dragenter', event]);
     };
     dragOverHandler = function (event) {
-      trigger.apply(root, ['dragover', event]);
+      trigger.apply(CCNBridge, ['dragover', event]);
     };
     dragLeaveHandler = function (event) {
-      trigger.apply(root, ['dragleave', event]);
+      trigger.apply(CCNBridge, ['dragleave', event]);
     };
     dropHandler = function (event) {
-      trigger.apply(root, ['drop', event]);
+      trigger.apply(CCNBridge, ['drop', event]);
     };
     scrollHandler = function (event) {
-      trigger.apply(root, ['scroll', event]);
+      trigger.apply(CCNBridge, ['scroll', event]);
     };
     rotateStartHandler = function (event) {
-      trigger.apply(root, ['rotatestart', event]);
+      trigger.apply(CCNBridge, ['rotatestart', event]);
     };
     rotateHandler = function (event) {
-      trigger.apply(root, ['rotate', event]);
+      trigger.apply(CCNBridge, ['rotate', event]);
     };
     rotateEndHandler = function (event) {
-      trigger.apply(root, ['rotateend', event]);
+      trigger.apply(CCNBridge, ['rotateend', event]);
     };
     zoomHandler = function (event) {
-      trigger.apply(root, ['zoom', event]);
+      trigger.apply(CCNBridge, ['zoom', event]);
     };
     on = function () {
       window.addEventListener('click', clickHandler, false);
@@ -257,6 +269,7 @@ var CCNBridge = (function () {
   })(this);
 
   window.addEventListener('load', function (event) {
+    // On page load : bind events on window object by default
     windowListener.on();
   });
 
@@ -420,8 +433,16 @@ var CCNBridge = (function () {
   };
 
   /**
-   * Unregister a previously registred callback for (an optionnal) event
-   * warning: This should not works for anonymous callbacks
+   * Unregister one or several previously registred callbacks
+   *
+   * warning: This should not work for anonymous callbacks
+   *
+   * @param [optionnal] eventType : the event type to unregister
+   * @param [optionnal] callback : the callback to unregister
+   * @param [optionnal] scope : the callback's scope (default: window)
+   *
+   * Note : if no callback is provided, this method will unregister every callbacks for the given eventType
+   * Note : if no eventType is provided, this method will unregister every callbacks for every events
    */
   off = function (eventType, callback, scope) {
     var listenerType, listenersList, indexOfCallbackInList, index;
@@ -553,8 +574,7 @@ var CCNBridge = (function () {
   };
 
   /**
-   * Unregister all previously registred callbacks for (an optionnal) event
-   * warning: This should not works for anonymous callbacks
+   * Alias for "off" method with optionnal eventType
    */
   removeAllListeners = function (eventType) {
     this.off(eventType);
