@@ -18,8 +18,8 @@ var gulp       = require('gulp'),
   browserify   = require('gulp-browserify'),
   // Variables
   __ports = {
-    server: 1348,
-    livereload: 35737
+    server: 1355,
+    livereload: 35749
   },
   __folders = {
     source: 'src',
@@ -101,12 +101,12 @@ gulp.task('watch', function () {
     }
 
     // Watch .js files
-    gulp.watch(__folders.source + '/{,*/}*.js', ['jshint']);
+    gulp.watch(__folders.source + '/{,*/}*.js', ['jshint', 'build']);
   });
 });
 
 // Serve
-gulp.task('serve', ['jshint', 'connect'], function () {
+gulp.task('serve', ['jshint', 'build', 'connect'], function () {
   gulp.start('watch');
 });
 

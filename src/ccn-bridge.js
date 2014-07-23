@@ -19,21 +19,80 @@ var CCNBridge = (function () {
       listeners,
       getListeners,
       on,
+      onClick,
+      onDoubleClick,
+      onHandle,
+      onMove,
+      onRelease,
+      onDragStart,
+      onDrag,
+      onDragEnd,
+      onDragEnter,
+      onDragOver,
+      onDragLeave,
+      onDrop,
+      onScroll,
+      onRotateStart,
       onRotate,
+      onRotateEnd,
       onZoom,
       off,
+      offClick,
+      offDoubleClick,
+      offHandle,
+      offMove,
+      offRelease,
+      offDragStart,
+      offDrag,
+      offDragEnd,
+      offDragEnter,
+      offDragOver,
+      offDragLeave,
+      offDrop,
+      offScroll,
+      offRotateStart,
       offRotate,
+      offRotateEnd,
       offZoom,
-      removeAllListeners,
-      trigger;
+      removeAllListeners;
 
   events = {
-    'rotate': 'rotation',
+    'click': 'click',
+    'dblclick': 'double-click',
+    'handle': 'handle',
+    'move': 'move',
+    'release': 'release',
+    'dragstart': 'drag-start',
+    'drag': 'drag',
+    'dragend': 'drag-end',
+    'dragenter': 'drag-enter',
+    'dragover': 'drag-over',
+    'dragleave': 'drag-leave',
+    'drop': 'drop',
+    'scroll': 'scroll',
+    'rotatestart': 'rotate-start',
+    'rotate': 'rotate',
+    'rotateend': 'rotate-end',
     'zoom': 'zoom'
   };
 
   listeners = {
-    'rotation': [],
+    'click': [],
+    'double-click': [],
+    'handle': [],
+    'move': [],
+    'release': [],
+    'drag-start': [],
+    'drag': [],
+    'drag-end': [],
+    'drag-enter': [],
+    'drag-over': [],
+    'drag-leave': [],
+    'drop': [],
+    'scroll': [],
+    'rotate-start': [],
+    'rotate': [],
+    'rotate-end': [],
     'zoom': []
   };
 
@@ -78,10 +137,115 @@ var CCNBridge = (function () {
   };
 
   /**
+   * Alias for "on" method with click event-type
+   */
+  onClick = function (callback, scope) {
+    this.on('click', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with double-click event-type
+   */
+  onDoubleClick = function (callback, scope) {
+    this.on('dblclick', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with handle event-type
+   */
+  onHandle = function (callback, scope) {
+    this.on('handle', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with move event-type
+   */
+  onMove = function (callback, scope) {
+    this.on('move', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with release event-type
+   */
+  onRelease = function (callback, scope) {
+    this.on('release', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with dragstart event-type
+   */
+  onDragStart = function (callback, scope) {
+    this.on('dragstart', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with drag event-type
+   */
+  onDrag = function (callback, scope) {
+    this.on('drag', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with dragend event-type
+   */
+  onDragEnd = function (callback, scope) {
+    this.on('dragend', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with dragenter event-type
+   */
+  onDragEnter = function (callback, scope) {
+    this.on('dragenter', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with dragover event-type
+   */
+  onDragOver = function (callback, scope) {
+    this.on('dragover', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with dragleave event-type
+   */
+  onDragLeave = function (callback, scope) {
+    this.on('dragleave', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with drop event-type
+   */
+  onDrop = function (callback, scope) {
+    this.on('drop', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with scroll event-type
+   */
+  onScroll = function (callback, scope) {
+    this.on('scroll', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with rotatestart event-type
+   */
+  onRotateStart = function (callback, scope) {
+    this.on('rotatestart', callback, scope);
+  };
+
+  /**
    * Alias for "on" method with rotate event-type
    */
   onRotate = function (callback, scope) {
     this.on('rotate', callback, scope);
+  };
+
+  /**
+   * Alias for "on" method with rotateend event-type
+   */
+  onRotateEnd = function (callback, scope) {
+    this.on('rotateend', callback, scope);
   };
 
   /**
@@ -141,10 +305,80 @@ var CCNBridge = (function () {
   };
 
   /**
+   * Alias for "off" method with click event-type
+   */
+  offClick = function (callback, scope) {
+    this.off('click', callback, scope);
+  };
+
+  /**
+   * Alias for "off" method with double-click event-type
+   */
+  offDoubleClick = function (callback, scope) {
+    this.off('double-click', callback, scope);
+  };
+
+  /**
+   * Alias for "off" method with handle event-type
+   */
+  offHandle = function (callback, scope) {
+    this.off('handle', callback, scope);
+  };
+
+  /**
+   * Alias for "off" method with move event-type
+   */
+  offMove = function (callback, scope) {
+    this.off('move', callback, scope);
+  };
+
+  /**
+   * Alias for "off" method with release event-type
+   */
+  offRelease = function (callback, scope) {
+    this.off('release', callback, scope);
+  };
+
+  /**
+   * Alias for "off" method with drag event-type
+   */
+  offDrag = function (callback, scope) {
+    this.off('drag', callback, scope);
+  };
+
+  /**
+   * Alias for "off" method with drop event-type
+   */
+  offDrop = function (callback, scope) {
+    this.off('drop', callback, scope);
+  };
+
+  /**
+   * Alias for "off" method with scroll event-type
+   */
+  offScroll = function (callback, scope) {
+    this.off('scroll', callback, scope);
+  };
+
+  /**
+   * Alias for "off" method with rotatestart event-type
+   */
+  offRotateStart = function (callback, scope) {
+    this.off('rotatestart', callback, scope);
+  };
+
+  /**
    * Alias for "off" method with rotate event-type
    */
   offRotate = function (callback, scope) {
     this.off('rotate', callback, scope);
+  };
+
+  /**
+   * Alias for "off" method with rotateend event-type
+   */
+  offRotateEnd = function (callback, scope) {
+    this.off('rotateend', callback, scope);
   };
 
   /**
@@ -162,44 +396,45 @@ var CCNBridge = (function () {
     this.off(eventType);
   };
 
-
-  /**
-   * Trigger method for C++ events
-   *
-   * Execute every callbacks registred for the given event
-   */
-  trigger = function (eventType, event) {
-    var listenerType, listenersList, l;
-
-    // Check if the event-type is defined by this API
-    if (!(eventType in events)) {
-      throw 'Impossible to trigger event : ' + eventType;
-    }
-
-    listenerType = events[eventType];
-    // Get the callbacks list
-    listenersList = listeners[listenerType];
-    l = listenersList.length - 1;
-
-    while (l >= 0) {
-      // For each callback, execute it with the given scope
-      listenersList[l].callback.apply(listenersList[l].scope, [event]);
-      l = l-1;
-    }
-  };
-
   // Public scope : return all accessible methods
   return {
     'getEvents': getEvents,
     'getListeners': getListeners,
     'on': on,
+    'onClick': onClick,
+    'onHandle': onHandle,
+    'onMove': onMove,
+    'onRelease': onRelease,
+    'onDragStart': onDragStart,
+    'onDrag': onDrag,
+    'onDragEnd': onDragEnd,
+    'onDragEnter': onDragEnter,
+    'onDragOver': onDragOver,
+    'onDragLeave': onDragLeave,
+    'onDrop': onDrop,
+    'onScroll': onScroll,
+    'onRotateStart': onRotateStart,
     'onRotate': onRotate,
+    'onRotateEnd': onRotateEnd,
     'onZoom': onZoom,
     'off': off,
+    'offClick': offClick,
+    'offHandle': offHandle,
+    'offMove': offMove,
+    'offRelease': offRelease,
+    'offDragStart': offDragStart,
+    'offDrag': offDrag,
+    'offDragEnd': offDragEnd,
+    'offDragEnter': offDragEnter,
+    'offDragOver': offDragOver,
+    'offDragLeave': offDragLeave,
+    'offDrop': offDrop,
+    'offScroll': offScroll,
+    'offRotateStart': offRotateStart,
     'offRotate': offRotate,
+    'offRotateEnd': offRotateEnd,
     'offZoom': offZoom,
-    'removeAllListeners': removeAllListeners,
-    'trigger': trigger
+    'removeAllListeners': removeAllListeners
   };
 })();
 
