@@ -56,13 +56,14 @@ var CCNBridge = (function () {
       offZoom,
       removeAllListeners,
       windowListener,
-      trigger;
+      trigger,
+      messages;
 
   /**
    * List of events
    * [Item] --> Event name : listener-list name
    */
-  events = {
+  events ={
     'click': 'click',
     'dblclick': 'double-click',
     'handle': 'handle',
@@ -580,6 +581,22 @@ var CCNBridge = (function () {
     this.off(eventType);
   };
 
+  messages = (function (scope, qtframework) {
+    var send;
+    send = function (content) {
+      if ((!(qtframework)) || (typeof qtframework.send === 'undefined')) {
+        window.console.warn('QtFramework System class is not provided for messages sending and receiving');
+      } else {
+        qtframework.send.apply(qtframework, content);
+      }
+    };
+    // TODO: Receive method
+    return {
+      'send': send,
+      'receive': null
+    };
+  })(this, null);
+
   // Public scope : return all accessible methods
   return {
     'getEvents': getEvents,
@@ -618,7 +635,8 @@ var CCNBridge = (function () {
     'offRotate': offRotate,
     'offRotateEnd': offRotateEnd,
     'offZoom': offZoom,
-    'removeAllListeners': removeAllListeners
+    'removeAllListeners': removeAllListeners,
+    'messages': messages
   };
 })();
 
