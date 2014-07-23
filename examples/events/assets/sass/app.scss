@@ -1,0 +1,133 @@
+@import "bourbon/bourbon";
+
+$fa-css-prefix: "icon";
+$fa-font-path: "../fonts/";
+@import "../components/font-awesome/scss/font-awesome";
+
+$event-active-background: rgb(217, 237, 247);
+$drop-area-border-color: rgb(75, 119, 190);
+$grey: rgb(191, 191, 191);
+$green: rgb(3, 201, 169);
+$drag-element-inside-border-color: $grey;
+$drop-area-inside-border-color: $grey;
+
+$drag-and-drop-size: 100px;
+
+@include keyframes(border-pulse) {
+    0% {
+        border-color: rgba($drop-area-border-color, 0.2);
+    }
+    50% {
+        border-color: rgba($drop-area-border-color, 0.9);
+    }
+    100% {
+        border-color: rgba($drop-area-border-color, 0.2);
+    }
+}
+
+@include keyframes(event-active) {
+    0% {
+        background: rgba($event-active-background, 1);
+    }
+    100% {
+        background: rgba($event-active-background, 0);
+    }
+}
+
+@mixin size ($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+@mixin square ($size) {
+    @include size($size, $size);
+}
+
+* {
+    @include user-select(none);
+}
+
+html {
+    body {
+        #drag-and-drop-area {
+            position: relative;
+            width: 100%;
+            height: $drag-and-drop-size;
+            #drag-element,
+            #drop-area {
+                position: absolute;
+                top: 0;
+                @include square($drag-and-drop-size);
+                border-width: 2px;
+                border-style: dashed;
+                box-sizing: border-box;
+            }
+            #drag-element {
+                left: 0;
+                border-color: rgba($drop-area-border-color, 0.2);
+                @include transition(opacity 0.25s ease-out);
+                &:hover {
+                    cursor: move;
+                }
+                &.dragging {
+                    opacity: 0.4;
+                }
+                #drag-element-inside {
+                    position: absolute;
+                    @include square(40px);
+                    top: 50%;
+                    left: 50%;
+                    @include transform(translate3d(-50%, -50%, 0));
+                    border-radius: 50%;
+                    border: 1px solid $drag-element-inside-border-color;
+                    &:before {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        @include transform(translate3d(-50%, -50%, 0));
+                        color: $grey;
+                    }
+                }
+            }
+            #drop-area {
+                right: 0;
+                border-color: rgba($drop-area-border-color, 0.2);
+                &.pulse {
+                    @include animation(border-pulse 1s linear 2);
+                }
+                #drop-area-inside {
+                    position: absolute;
+                    @include square(40px);
+                    top: 50%;
+                    left: 50%;
+                    @include transform(translate3d(-50%, -50%, 0));
+                    border-radius: 50%;
+                    border: 1px solid $drop-area-inside-border-color;
+                    &:before {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        @include transform(translate3d(-50%, -50%, 0));
+                        color: $grey;
+                    }
+                }
+                &.active {
+                    border-color: rgba($drop-area-border-color, 0.9);
+                    #drop-area-inside {
+                        border-color: $green;
+                        &:before {
+                            color: $green;
+                        }
+                    }
+                }
+            }
+        }
+        #table-events {
+            td {
+                &.fired {
+                    @include animation(event-active 0.4s linear 1);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang='fr'>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta name='description' content='Virtual Sensitive resources' />
+        <meta name='author' content='Florent Schildknecht' />
+        <title>Virtual Sensitive CoCoNote Bridge for C++</title>
+        <link rel='stylesheet' href='assets/css/vendor/bootstrap-3.2.0.min.css' />
+        <link rel='stylesheet' href='assets/css/app.css' />
+    </head>
+    <body>
+        <section class='container'>
+            <div class='jumbotron'>
+                <h1 class='text-center'>Events</h1>
+                <div id='drag-and-drop-area'>
+                    <div id='drag-element' draggable='true'>
+                        <span id='drag-element-inside' class='icon icon-chevron-circle-right'></span>
+                    </div>
+                    <div id='drop-area'>
+                        <span id='drop-area-inside'></span>
+                    </div>
+                </div>
+            </div>
+            <div class='table-responsive'>
+                <table id='table-events' class='table table-bordered table-condensed table-hover'>
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>X</th>
+                            <th>Y</th>
+                            <th>Alpha</th>
+                            <th>Ratio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id='event-click-name'>Click</td>
+                            <td id='event-click-date'></td>
+                            <td id='event-click-clientX'></td>
+                            <td id='event-click-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-double-click-name'>DoubleClick</td>
+                            <td id='event-double-click-date'></td>
+                            <td id='event-double-click-clientX'></td>
+                            <td id='event-double-click-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-handle-name'>Handle</td>
+                            <td id='event-handle-date'></td>
+                            <td id='event-handle-clientX'></td>
+                            <td id='event-handle-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-move-name'>Move</td>
+                            <td id='event-move-date'></td>
+                            <td id='event-move-clientX'></td>
+                            <td id='event-move-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-release-name'>Release</td>
+                            <td id='event-release-date'></td>
+                            <td id='event-release-clientX'></td>
+                            <td id='event-release-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-drag-start-name'>DragStart</td>
+                            <td id='event-drag-start-date'></td>
+                            <td id='event-drag-start-clientX'></td>
+                            <td id='event-drag-start-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-drag-name'>Drag</td>
+                            <td id='event-drag-date'></td>
+                            <td id='event-drag-clientX'></td>
+                            <td id='event-drag-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-drag-enter-name'>DragEnter</td>
+                            <td id='event-drag-enter-date'></td>
+                            <td id='event-drag-enter-clientX'></td>
+                            <td id='event-drag-enter-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-drag-over-name'>DragOver</td>
+                            <td id='event-drag-over-date'></td>
+                            <td id='event-drag-over-clientX'></td>
+                            <td id='event-drag-over-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-drag-leave-name'>DragLeave</td>
+                            <td id='event-drag-leave-date'></td>
+                            <td id='event-drag-leave-clientX'></td>
+                            <td id='event-drag-leave-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-drag-end-name'>DragEnd</td>
+                            <td id='event-drag-end-date'></td>
+                            <td id='event-drag-end-clientX'></td>
+                            <td id='event-drag-end-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-drop-name'>Drop</td>
+                            <td id='event-drop-date'></td>
+                            <td id='event-drop-clientX'></td>
+                            <td id='event-drop-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-scroll-name'>Scroll</td>
+                            <td id='event-scroll-date'></td>
+                            <td id='event-scroll-clientX'></td>
+                            <td id='event-scroll-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-rotate-start-name'>RotateStart</td>
+                            <td id='event-rotate-start-date'></td>
+                            <td id='event-rotate-start-clientX'></td>
+                            <td id='event-rotate-start-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-rotate-name'>Rotate</td>
+                            <td id='event-rotate-date'></td>
+                            <td id='event-rotate-clientX'></td>
+                            <td id='event-rotate-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-rotate-end-name'>RotateEnd</td>
+                            <td id='event-rotate-end-date'></td>
+                            <td id='event-rotate-end-clientX'></td>
+                            <td id='event-rotate-end-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td id='event-zoom-name'>Zoom</td>
+                            <td id='event-zoom-date'></td>
+                            <td id='event-zoom-clientX'></td>
+                            <td id='event-zoom-clientY'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <script src='assets/js/vendor/jquery-2.1.1.min.js'></script>
+        <script src='assets/js/vendor/bootstrap-3.2.0.min.js'></script>
+        <script src='assets/js/vendor/moment-2.7.0.min.js'></script>
+        <script src='assets/js/vendor/underscore-1.6.0.min.js'></script>
+        <script src='../../build/ccn-bridge.js'></script>
+        <script src='assets/js/events.js'></script>
+    </body>
+</html>
