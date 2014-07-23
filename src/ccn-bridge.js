@@ -54,7 +54,9 @@ var CCNBridge = (function () {
       offRotate,
       offRotateEnd,
       offZoom,
-      removeAllListeners;
+      removeAllListeners,
+      windowListener,
+      trigger;
 
   events = {
     'click': 'click',
@@ -95,6 +97,168 @@ var CCNBridge = (function () {
     'rotate-end': [],
     'zoom': []
   };
+
+  /**
+   * Trigger method for JavaScript and C++ events
+   *
+   * Execute every callbacks registred for the given event
+   */
+  trigger = function (eventType, event) {
+    var listenerType, listenersList, l;
+
+    // Check if the event-type is defined by this API
+    if (!(eventType in events)) {
+      throw 'Impossible to trigger event : ' + eventType;
+    }
+
+    listenerType = events[eventType];
+    // Get the callbacks list
+    listenersList = listeners[listenerType];
+    l = listenersList.length - 1;
+
+    while (l >= 0) {
+      // For each callback, execute it with the given scope
+      listenersList[l].callback.apply(listenersList[l].scope, [event]);
+      l = l-1;
+    }
+  };
+
+  windowListener = (function (root) {
+    var on,
+      clickHandler,
+      doubleClickHandler,
+      mouseDownHandler,
+      mouseMoveHandler,
+      mouseUpHandler,
+      touchStartHandler,
+      touchMoveHandler,
+      touchEndHandler,
+      dragStartHandler,
+      dragHandler,
+      dragEndHandler,
+      dragEnterHandler,
+      dragOverHandler,
+      dragLeaveHandler,
+      dropHandler,
+      scrollHandler,
+      rotateStartHandler,
+      rotateHandler,
+      rotateEndHandler,
+      zoomHandler,
+      off;
+    clickHandler = function (event) {
+      trigger.apply(root, ['click', event]);
+    };
+    doubleClickHandler = function (event) {
+      trigger.apply(root, ['dblclick', event]);
+    };
+    mouseDownHandler = function (event) {
+      trigger.apply(root, ['handle', event]);
+    };
+    mouseMoveHandler = function (event) {
+      trigger.apply(root, ['move', event]);
+    };
+    mouseUpHandler = function (event) {
+      trigger.apply(root, ['release', event]);
+    };
+    touchStartHandler = function (event) {
+      trigger.apply(root, ['handle', event]);
+    };
+    touchMoveHandler = function (event) {
+      trigger.apply(root, ['move', event]);
+    };
+    touchEndHandler = function (event) {
+      trigger.apply(root, ['release', event]);
+    };
+    dragStartHandler = function (event) {
+      trigger.apply(root, ['dragstart', event]);
+    };
+    dragHandler = function (event) {
+      trigger.apply(root, ['drag', event]);
+    };
+    dragEndHandler = function (event) {
+      trigger.apply(root, ['dragend', event]);
+    };
+    dragEnterHandler = function (event) {
+      trigger.apply(root, ['dragenter', event]);
+    };
+    dragOverHandler = function (event) {
+      trigger.apply(root, ['dragover', event]);
+    };
+    dragLeaveHandler = function (event) {
+      trigger.apply(root, ['dragleave', event]);
+    };
+    dropHandler = function (event) {
+      trigger.apply(root, ['drop', event]);
+    };
+    scrollHandler = function (event) {
+      trigger.apply(root, ['scroll', event]);
+    };
+    rotateStartHandler = function (event) {
+      trigger.apply(root, ['rotatestart', event]);
+    };
+    rotateHandler = function (event) {
+      trigger.apply(root, ['rotate', event]);
+    };
+    rotateEndHandler = function (event) {
+      trigger.apply(root, ['rotateend', event]);
+    };
+    zoomHandler = function (event) {
+      trigger.apply(root, ['zoom', event]);
+    };
+    on = function () {
+      window.addEventListener('click', clickHandler, false);
+      window.addEventListener('dblclick', doubleClickHandler, false);
+      window.addEventListener('mousedown', mouseDownHandler, false);
+      window.addEventListener('mousemove', mouseMoveHandler, false);
+      window.addEventListener('mouseup', mouseUpHandler, false);
+      window.addEventListener('touchstart', touchStartHandler, false);
+      window.addEventListener('touchmove', touchMoveHandler, false);
+      window.addEventListener('touchend', touchEndHandler, false);
+      window.addEventListener('dragstart', dragStartHandler, false);
+      window.addEventListener('drag', dragHandler, false);
+      window.addEventListener('dragend', dragEndHandler, false);
+      window.addEventListener('dragenter', dragEnterHandler, false);
+      window.addEventListener('dragover', dragOverHandler, false);
+      window.addEventListener('dragleave', dragLeaveHandler, false);
+      window.addEventListener('drop', dropHandler, false);
+      window.addEventListener('scroll', scrollHandler, false);
+      window.addEventListener('rotatestart', rotateStartHandler, false);
+      window.addEventListener('rotate', rotateHandler, false);
+      window.addEventListener('rotateend', rotateEndHandler, false);
+      window.addEventListener('zoom', zoomHandler, false);
+    };
+    off = function () {
+      window.removeEventListener('click', clickHandler, false);
+      window.removeEventListener('dblclick', doubleClickHandler, false);
+      window.removeEventListener('mousedown', mouseDownHandler, false);
+      window.removeEventListener('mousemove', mouseMoveHandler, false);
+      window.removeEventListener('mouseup', mouseUpHandler, false);
+      window.removeEventListener('touchstart', touchStartHandler, false);
+      window.removeEventListener('touchmove', touchMoveHandler, false);
+      window.removeEventListener('touchend', touchEndHandler, false);
+      window.removeEventListener('dragstart', dragStartHandler, false);
+      window.removeEventListener('drag', dragHandler, false);
+      window.removeEventListener('dragend', dragEndHandler, false);
+      window.removeEventListener('dragenter', dragEnterHandler, false);
+      window.removeEventListener('dragover', dragOverHandler, false);
+      window.removeEventListener('dragleave', dragLeaveHandler, false);
+      window.removeEventListener('drop', dropHandler, false);
+      window.removeEventListener('scroll', scrollHandler, false);
+      window.removeEventListener('rotatestart', rotateStartHandler, false);
+      window.removeEventListener('rotate', rotateHandler, false);
+      window.removeEventListener('rotateend', rotateEndHandler, false);
+      window.removeEventListener('zoom', zoomHandler, false);
+    };
+    return {
+      'on': on,
+      'off': off
+    };
+  })(this);
+
+  window.addEventListener('load', function (event) {
+    windowListener.on();
+  });
 
   /**
    * Get listeners
