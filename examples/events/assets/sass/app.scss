@@ -145,6 +145,7 @@ html {
 
         }
         #table-events {
+            table-layout: fixed;
             td {
                 &.fired {
                     @include animation(event-active 0.4s linear 1);

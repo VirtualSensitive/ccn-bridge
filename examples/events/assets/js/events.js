@@ -38,6 +38,7 @@
     };
     var setEventActive;
     setEventActive = function (eventName, event) {
+        console.log(event.detail);
         var $eventName, $eventDate, date, $clientX, $clientY, $alpha, $ratio;
         $eventName = $('#event-' + eventName + '-name');
         $eventDate = $('#event-' + eventName + '-date');
@@ -63,8 +64,11 @@
         if ($clientY && event.clientY) {
             $clientY.text(event.clientY);
         }
-        if ($alpha && event.alpha) {
-            $clientY.text(event.alpha);
+        if ($alpha && event.detail && event.detail.alpha) {
+            $alpha.text(event.detail.alpha);
+        }
+        if ($ratio && event.detail && event.detail.ratio) {
+            $ratio.text(event.detail.ratio);
         }
     }
     var $dragElement,
@@ -128,7 +132,9 @@
             mousedown: function (event) {
                 rotationArcCanRotate = true;
                 window.dispatchEvent(new CustomEvent('rotatestart', {
-                    'date': new Date()
+                    'detail': {
+                        'time': new Date()
+                    }
                 }));
             }
         }, rotationArcSelector)
@@ -137,9 +143,21 @@
                 if (rotationArcCanRotate) {
                     rotationArcCanRotate = false;
                     window.dispatchEvent(new CustomEvent('rotateend', {
-                        'date': new Date()
+                        'detail': {
+                            'time': new Date()
+                        }
                     }));
                 }
+            },
+            'wheel mousewheel': function (event, delta) {
+                delta = delta || event.originalEvent.deltaY * -1 || event.originalEvent.wheelDelta;
+                window.dispatchEvent(new CustomEvent('zoom', {
+                    'date': new Date(),
+                    'detail': {
+                        'time': new Date(),
+                        'ratio': delta
+                    }
+                }));
             }
         });
 
@@ -155,10 +173,15 @@
                 .outerRadius(50)
                 .startAngle(alpha - Math.radians(15))
                 .endAngle(alpha + Math.radians(15));
+
             rotationArc.attr('d', arc).attr('transform', 'translate(50, 50)');
+
             window.dispatchEvent(new CustomEvent('rotate', {
                 'date': new Date(),
-                'alpha': Math.degrees(alpha)
+                'detail': {
+                    'time': new Date(),
+                    'alpha': Math.degrees(alpha)
+                }
             }));
         }
     })

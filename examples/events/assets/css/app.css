@@ -1938,6 +1938,9 @@ html body #rotation-area #rotation-container #rotation-arc {
   stroke: #4b77be;
   stroke-width: 0.5px;
 }
+html body #table-events {
+  table-layout: fixed;
+}
 html body #table-events td.fired {
   -webkit-animation: event-active 0.4s linear 1;
   -moz-animation: event-active 0.4s linear 1;
