@@ -1,10 +1,21 @@
 (function ($) {
+    // Converts from degrees to radians.
+    Math.radians = function(degrees) {
+        return degrees * Math.PI / 180;
+    };
+
+    // Converts from radians to degrees.
+    Math.degrees = function(radians) {
+        return radians * 180 / Math.PI;
+    };
+
     if (!$) {
         throw 'jQuery is not defined';
     }
 
     var $body = $('body');
     var $window = $(window);
+    var $document = $(document);
     var events;
     events = {
         'click': 'click',
@@ -56,9 +67,9 @@
             $clientY.text(event.alpha);
         }
     }
-    var $dragElement;
+    var $dragElement,
+        $dropArea;
     $dragElement = $('#drag-element', '#drag-and-drop-area');
-    var $dropArea;
     $dropArea = $('#drop-area', '#drag-and-drop-area');
 
     _.each(events, function (eventName, eventType) {
@@ -102,4 +113,53 @@
                 $(this).addClass('active').find('#drop-area-inside').addClass('icon icon-check');
             }
         });
+
+    var rotationArcSelector,
+        rotationArc,
+        rotationCircle,
+        rotationArcCanRotate;
+    rotationArcSelector = '#rotation-arc';
+    rotationArc = d3.select(rotationArcSelector);
+    rotationCircle = d3.select('#rotation-circle');
+    rotationArcCanRotate = false;
+
+    $document
+        .on({
+            mousedown: function (event) {
+                rotationArcCanRotate = true;
+                window.dispatchEvent(new CustomEvent('rotatestart', {
+                    'date': new Date()
+                }));
+            }
+        }, rotationArcSelector)
+        .on({
+            mouseup: function (event) {
+                if (rotationArcCanRotate) {
+                    rotationArcCanRotate = false;
+                    window.dispatchEvent(new CustomEvent('rotateend', {
+                        'date': new Date()
+                    }));
+                }
+            }
+        });
+
+    d3.select(document).on('mousemove', function (event) {
+        var coords,
+            alpha,
+            arc;
+        if (rotationArcCanRotate) {
+            coords = d3.mouse(d3.select('#rotation-circle').node());
+            alpha = -Math.atan2(50 - coords[0], 50 - coords[1]);
+            arc = d3.svg.arc()
+                .innerRadius(0)
+                .outerRadius(50)
+                .startAngle(alpha - Math.radians(15))
+                .endAngle(alpha + Math.radians(15));
+            rotationArc.attr('d', arc).attr('transform', 'translate(50, 50)');
+            window.dispatchEvent(new CustomEvent('rotate', {
+                'date': new Date(),
+                'alpha': Math.degrees(alpha)
+            }));
+        }
+    })
 })(window.jQuery);

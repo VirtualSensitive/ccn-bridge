@@ -29,6 +29,7 @@
     "detect-zoom": "git@github.com:tombigel/detect-zoom.git",
     "magic-touch": "git@github.com:borismus/MagicTouch.git",
     "QuoJS": "*",
-    "quojs": "~3.0.4"
+    "quojs": "~3.0.4",
+    "d3": "~3.4.11"
   }
 }

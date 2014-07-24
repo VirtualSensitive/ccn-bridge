@@ -1924,6 +1924,20 @@ html body #drag-and-drop-area #drop-area.active #drop-area-inside {
 html body #drag-and-drop-area #drop-area.active #drop-area-inside:before {
   color: #03c9a9;
 }
+html body #rotation-area #rotation-container {
+  overflow: visible;
+}
+html body #rotation-area #rotation-container #rotation-circle {
+  fill: transparent;
+  stroke: black;
+  stroke-width: 1px;
+  stroke-line-join: round;
+}
+html body #rotation-area #rotation-container #rotation-arc {
+  fill: rgba(191, 191, 191, 0.9);
+  stroke: #4b77be;
+  stroke-width: 0.5px;
+}
 html body #table-events td.fired {
   -webkit-animation: event-active 0.4s linear 1;
   -moz-animation: event-active 0.4s linear 1;

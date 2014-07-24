@@ -101,7 +101,7 @@ gulp.task('watch', function () {
     }
 
     // Watch .js files
-    gulp.watch(__folders.source + '/{,*/}*.js', ['jshint', 'build']);
+    gulp.watch(__folders.source + '/{,*/}*.js', ['jshint']);
   });
 });
 

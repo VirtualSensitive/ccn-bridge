@@ -4,14 +4,19 @@ $fa-css-prefix: "icon";
 $fa-font-path: "../fonts/";
 @import "../components/font-awesome/scss/font-awesome";
 
-$event-active-background: rgb(217, 237, 247);
-$drop-area-border-color: rgb(75, 119, 190);
+$blue: rgb(75, 119, 190);
 $grey: rgb(191, 191, 191);
 $green: rgb(3, 201, 169);
+
+$event-active-background: rgb(217, 237, 247);
+
+$drop-area-border-color: $blue;
 $drag-element-inside-border-color: $grey;
 $drop-area-inside-border-color: $grey;
-
 $drag-and-drop-size: 100px;
+
+$rotation-arc-stroke: $blue;
+$rotation-arc-fill: $grey;
 
 @include keyframes(border-pulse) {
     0% {
@@ -121,6 +126,23 @@ html {
                     }
                 }
             }
+        }
+        #rotation-area {
+            #rotation-container {
+                overflow: visible;
+                #rotation-circle {
+                    fill: transparent;
+                    stroke: black;
+                    stroke-width: 1px;
+                    stroke-line-join: round;
+                }
+                #rotation-arc {
+                    fill: rgba($rotation-arc-fill, 0.9);
+                    stroke: $rotation-arc-stroke;
+                    stroke-width: 0.5px;
+                }
+            }
+
         }
         #table-events {
             td {
