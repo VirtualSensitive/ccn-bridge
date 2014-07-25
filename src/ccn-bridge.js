@@ -636,7 +636,8 @@ var CCNBridge = (function () {
     'offRotateEnd': offRotateEnd,
     'offZoom': offZoom,
     'removeAllListeners': removeAllListeners,
-    'messages': messages
+    'messages': messages,
+    'trigger': trigger
   };
 })();
 
