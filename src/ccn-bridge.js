@@ -642,7 +642,7 @@
 
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {
-      exports = module.exports;
+      exports = module.exports = CCNBridge;
     }
     exports.CCNBridge = CCNBridge;
   }
