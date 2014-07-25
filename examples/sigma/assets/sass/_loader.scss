@@ -1,0 +1,77 @@
+@import "bourbon/bourbon";
+
+$size: 175px;
+$half: $size / 2;
+$scale: 1;
+
+@mixin square($size) {
+    width: $size;
+    height: $size;
+}
+
+@mixin opacity($opacity: 1) {
+    opacity: $opacity;
+}
+
+@include keyframes(load) {
+    100% {
+        opacity: 0;
+        transform: scale($scale);
+    }
+}
+
+html {
+    body {
+        .loader-overlay {
+            position: fixed;
+            @include square(100%);
+            z-index: 999;
+            background: rgba(41, 41, 41, 0.65);
+            @include opacity(0);
+            @include transition(opacity 0.25s linear);
+            &.active {
+                @include opacity(1);
+            }
+        }
+        .loader-circular {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            @include square($size);
+            @include transform(translate3d(-50%, -50%, 0));
+            @include transition(opacity 0.8s linear);
+            &.dissapear {
+                @include opacity(0);
+            }
+            .dot {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: $half; height: 100%;
+                margin: auto;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    @include square($half);
+                    border-radius: 100%;
+                    @include transform(scale(0));
+                }
+                @for $i from 1 through 8 {
+                    &:nth-child(7n+#{$i}) {
+                        @include transform(rotate(45deg * $i) translate3d($half / 2, $half / 2, 0));
+                        &:before {
+                            background: hsl(50 * $i, 100%, 50%);
+                            @include animation(load .8s linear .1s * $i infinite);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
