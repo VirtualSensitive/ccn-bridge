@@ -38,7 +38,6 @@
     };
     var setEventActive;
     setEventActive = function (eventName, event) {
-        console.log(event.detail);
         var $eventName, $eventDate, date, $clientX, $clientY, $alpha, $ratio;
         $eventName = $('#event-' + eventName + '-name');
         $eventDate = $('#event-' + eventName + '-date');
