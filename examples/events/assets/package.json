@@ -1,7 +1,7 @@
 {
   "name": "pulse",
   "version": "0.0.1",
-  "description": "Pulse - CCNBridge example",
+  "description": "Events example of CCNBridge events binding",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,8 +18,6 @@
     "gulp-connect": "~2.0.5",
     "gulp-livereload": "~2.1.0",
     "tiny-lr": "0.0.7",
-    "gulp-coffee": "~2.0.1",
-    "gulp-coffeelint": "~0.3.3",
     "gulp-uglify": "~0.3.1",
     "gulp-concat": "~2.2.0",
     "gulp-ruby-sass": "git://github.com/sindresorhus/gulp-ruby-sass#rw/auto-loadpath",

@@ -9,11 +9,6 @@ var gulp         = require('gulp'),
     livereload   = require('gulp-livereload'),
     lr           = require('tiny-lr'),
     server       = lr(),
-    // Scripts [coffee, js]
-    coffee       = require('gulp-coffee'),
-    coffeelint   = require('gulp-coffeelint'),
-    uglify       = require('gulp-uglify'),
-    concat       = require('gulp-concat'),
     // Styles [sass, css]
     sass         = require('gulp-ruby-sass'),
     minifycss    = require('gulp-minify-css'),
@@ -58,35 +53,6 @@ gulp.task('styles', function () {
         }));
 });
 
-// Scripts
-gulp.task('scripts', function () {
-    return gulp.src(['coffee/{,*/}*.coffee'])
-        .pipe(coffee({
-            bare: true
-        }))
-        .on('error', gutil.log)
-        .pipe(coffeelint())
-        .on('error', gutil.log)
-        .pipe(coffeelint.reporter())
-        .on('error', gutil.log)
-        .pipe(size())
-        .pipe(gulp.dest('js'))
-        .pipe(uglify())
-        .on('error', gutil.log)
-        .pipe(rename({
-            suffix: '.min'
-        }))
-        .pipe(size())
-        .pipe(gulp.dest('js'))
-        .pipe(livereload(server))
-        .pipe(notify({
-            message: 'Scripts task completed @ <%= options.date %>',
-            templateOptions: {
-                date: new Date()
-            }
-        }));
-});
-
 // Images
 gulp.task('images', function () {
     return gulp.src('images/**/*.{jpg,gif,png}')
@@ -103,7 +69,7 @@ gulp.task('images', function () {
 
 // Fonts
 gulp.task('fonts', function () {
-    return gulp.src(['components/font-awesome/fonts/**/*', ])
+    return gulp.src(['components/font-awesome/fonts/**/*', , 'components/bootstrap-sass/vendor/assets/fonts/**/*'])
         .on('error', gutil.log)
         .pipe(size())
         .pipe(gulp.dest('fonts'))
@@ -129,18 +95,15 @@ gulp.task('watch', function () {
 
         // Watch .scss files
         gulp.watch('sass/{,*/}*.scss', ['styles']);
-
-        // Watch .coffee files
-        gulp.watch('coffee/{,*/}*.coffee', ['scripts']);
     });
 });
 
 // Assets
-gulp.task('assets', ['fonts', 'styles', 'scripts', 'images']);
+gulp.task('assets', ['fonts', 'styles', 'images']);
 
 // Dev
-gulp.task('dev', ['assets'], function () {
-    gulp.start('connect', 'watch');
+gulp.task('dev', ['assets', 'connect'], function () {
+    gulp.start('watch');
 });
 
 // Default task
