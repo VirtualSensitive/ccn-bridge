@@ -1,6 +1,6 @@
 {
   "name": "ccn-bridge",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CoCoNote Bridge for tactile events",
   "main": "index.js",
   "scripts": {
