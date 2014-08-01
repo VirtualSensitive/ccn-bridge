@@ -38,7 +38,6 @@
     };
     var setEventActive;
     setEventActive = function (eventName, event) {
-        console.log(event.detail);
         var $eventName, $eventDate, date, $clientX, $clientY, $alpha, $ratio;
         $eventName = $('#event-' + eventName + '-name');
         $eventDate = $('#event-' + eventName + '-date');
@@ -152,7 +151,6 @@
             'wheel mousewheel': function (event, delta) {
                 delta = delta || event.originalEvent.deltaY * -1 || event.originalEvent.wheelDelta;
                 window.dispatchEvent(new CustomEvent('zoom', {
-                    'date': new Date(),
                     'detail': {
                         'time': new Date(),
                         'ratio': delta
@@ -177,7 +175,6 @@
             rotationArc.attr('d', arc).attr('transform', 'translate(50, 50)');
 
             window.dispatchEvent(new CustomEvent('rotate', {
-                'date': new Date(),
                 'detail': {
                     'time': new Date(),
                     'alpha': Math.degrees(alpha)

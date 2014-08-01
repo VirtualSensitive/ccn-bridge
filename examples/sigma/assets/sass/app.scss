@@ -1,0 +1,37 @@
+@import "bourbon/bourbon";
+
+$fa-css-prefix: "icon";
+$fa-font-path: "../fonts/";
+@import "../components/font-awesome/scss/font-awesome";
+
+@import "loader";
+
+@mixin size ($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+@mixin square ($size) {
+    @include size($size, $size);
+}
+
+* {
+    @include user-select(none);
+}
+
+html {
+    width: 100%;
+    height: 100%;
+    body {
+        width: 100%;
+        height: 100%;
+        .container {
+            height: 100%;
+            #graph-container {
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}

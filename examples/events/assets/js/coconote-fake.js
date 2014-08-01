@@ -22,27 +22,39 @@
     switch (eventName) {
       case 'rotate':
         eventsList.push(new CustomEvent('rotatestart', {
-          'date': new Date()
+          'detail': {
+            'time': new Date()
+          }
         }));
         eventsList.push(new CustomEvent('rotate', {
-          'date': new Date(),
-          'alpha': parseInt(Math.random() * 361)
+          'detail': {
+            'time': new Date(),
+            'alpha': parseInt(Math.random() * 361)
+          }
         }));
         eventsList.push(new CustomEvent('rotate', {
-          'date': new Date(),
-          'alpha': parseInt(Math.random() * 361)
+          'detail': {
+            'time': new Date(),
+            'alpha': parseInt(Math.random() * 361)
+          }
         }));
         eventsList.push(new CustomEvent('rotate', {
-          'date': new Date(),
-          'alpha': parseInt(Math.random() * 361)
+          'detail': {
+            'time': new Date(),
+            'alpha': parseInt(Math.random() * 361)
+          }
         }));
         eventsList.push(new CustomEvent('rotateend', {
-          'date': new Date()
+          'detail': {
+            'time': new Date()
+          }
         }));
         break;
       case 'zoom':
         eventsList.push(new CustomEvent('zoom', {
-          'date': new Date()
+          'detail': {
+            'date': new Date()
+          }
         }));
         break;
     }

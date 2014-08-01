@@ -1,0 +1,33 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "includePattern": ".+\\.js(doc)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": [],
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": false,
+        "systemName": "CCNBridge",
+        "footer": "",
+        "copyright": "Copyright Florent Schildknecht <florent.schildknecht@gmail.com> © Virtual Sensitive 2014",
+        "navType": "inline",
+        "theme": "flatly",
+        "linenums": true,
+        "collapseSymbols": false,
+        "inverseNav": true,
+        "outputSourceFiles": true,
+        "outputSourcePath": false,
+        "dateFormat": "dd MM YYYY HH:ii:ss",
+        "highlightTutorialCode": true,
+        "syntaxTheme": "dark",
+        "protocol": "http://"
+    },
+    "opts": {
+        "encoding": "utf8",
+        "destination": "./doc",
+        "template": "./template/"
+    }
+}
